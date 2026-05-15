@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Padişah Restoran</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-bar">
+      <div class="logo-bar">
+        <img src="/img/logo-removebg-preview.png" alt="Padişah Restoran Logo"/>
+      </div>
+      <div class="list-bar">
+        <ul class="nav-list">
+          <li><a href="#hero-banner">Əsas</a></li>
+          <li><a href="#productGrid">Menyu</a></li>
+          <li><a href="#dessert-section">Dessert</a></li>
+          <li><a href="#drinks-grid">İçkilər</a></li>
+          <li><a href="#contact-section">Əlaqə</a></li>
+        </ul>
+      </div>
+      <div class="header-actions">
+        <div class="cart-btn" id="cartToggle">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <button class="burger" id="burgerBtn" aria-label="Menyu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <!-- Mobile menu -->
+    <div class="mobile-nav" id="mobileNav">
+      <ul>
+        <li><a href="#hero-banner">Əsas</a></li>
+        <li><a href="#productGrid">Menyu</a></li>
+        <li><a href="#dessert-section">Dessert</a></li>
+        <li><a href="#drinks-grid">İçkilər</a></li>
+        <li><a href="#contact-section">Əlaqə</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero-banner">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Baku · Azerbaijan</p>
+      <h1 class="hero-title">Padişah<br/><em>Restoran</em></h1>
+      <p class="hero-sub">Elmlər Akademiyası metrostansiyası çıxışında<br/>zövqünüzü oxşayan təamlarımızla xidmətinizdəyik</p>
+      <a href="#productGrid" class="hero-cta">Menyuya Bax</a>
+    </div>
+    <div class="hero-scroll">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ABOUT STRIP -->
+  <div class="about-strip">
+    <div class="strip-item">
+      <i class="fa-solid fa-star"></i>
+      <span>Premium Keyfiyyət</span>
+    </div>
+    <div class="strip-divider"></div>
+    <div class="strip-item">
+      <i class="fa-solid fa-fire-burner"></i>
+      <span>Ənənəvi Reseptlər</span>
+    </div>
+    <div class="strip-divider"></div>
+    <div class="strip-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Elmlər Akademiyası</span>
+    </div>
+  </div>
+
+  <!-- FILTER + CART ICON -->
+  <div class="menu-header" id="productGrid">
+    <div class="section-label">Menyu</div>
+    <h2 class="section-heading">Əsas Yeməklər</h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-cat="all">Hamısı</button>
+      <button class="filter-btn" data-cat="salat">Salat</button>
+      <button class="filter-btn" data-cat="pizza">Pizza</button>
+      <button class="filter-btn" data-cat="kabab">Kabab</button>
+      <button class="filter-btn" data-cat="pide">Pide</button>
+    </div>
+  </div>
+
+  <!-- SEARCH BAR -->
+<div class="search-bar-wrap">
+  <div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input 
+      type="text" 
+      id="searchInput" 
+      placeholder="Məhsul axtar..." 
+      autocomplete="off"
+    />
+    <button class="search-clear" id="searchClear" aria-label="Təmizlə">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+</div>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar-inner">
+      <div class="cart-head">
+        <h2 class="cart-title">Səbətim</h2>
+        <i class="fa-solid fa-x cart-close" id="cartClose"></i>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>Cəmi</span>
+          <span class="cart-total-amount"><span id="cartTotal">0</span> ₼</span>
+        </div>
+        <button class="cart-clear" id="cartClear">Səbəti Təmizlə</button>
+        <button class="cart-checkout">Sifariş Ver</button>
+      </div>
+    </div>
+  </div>
+  <div class="cart-backdrop" id="cartBackdrop"></div>
+
+  <!-- PRODUCT GRID -->
+  <section class="product-grid-wrap">
+    <div class="product-grid" id="productGridItems"></div>
+  </section>
+
+ <!-- DESSERTS -->
+<section class="dessert-section" id="dessert-section">
+  <div class="section-label">Şirin Dünya</div>
+  <h2 class="section-heading" id="dessert-grid">Dessertlər</h2>
+  <div class="dessert-grid">
+
+    <div class="dessert-card">
+      <div class="dessert-img-wrap">
+        <img src="https://img.freepik.com/free-photo/chocolate-cake-with-nuts-ice-cream-top-strawberries-1_140725-8388.jpg?w=360" alt="Chocolate cake"/>
+        <div class="dessert-overlay">
+          <button class="dessert-add-btn" data-name="Chocolate Cake" data-price="8" data-img="https://img.freepik.com/free-photo/chocolate-cake-with-nuts-ice-cream-top-strawberries-1_140725-8388.jpg?w=360">+ Əlavə Et</button>
+        </div>
+      </div>
+      <div class="dessert-info">
+        <h3>Chocolate Cake</h3>
+        <span class="dessert-price">8 ₼</span>
+      </div>
+    </div>
+
+    <div class="dessert-card">
+      <div class="dessert-img-wrap">
+        <img src="https://img.freepik.com/free-photo/berry-cheesecake-covered-with-berry-gelatine_140725-5729.jpg?w=360" alt="Berry cheesecake"/>
+        <div class="dessert-overlay">
+          <button class="dessert-add-btn" data-name="Berry Cheesecake" data-price="7" data-img="https://img.freepik.com/free-photo/berry-cheesecake-covered-with-berry-gelatine_140725-5729.jpg?w=360">+ Əlavə Et</button>
+        </div>
+      </div>
+      <div class="dessert-info">
+        <h3>Berry Cheesecake</h3>
+        <span class="dessert-price">7 ₼</span>
+      </div>
+    </div>
+
+    <div class="dessert-card">
+      <div class="dessert-img-wrap">
+        <img src="https://img.freepik.com/free-photo/side-view-two-strawberry-cheesecake-with-cup-tea-cinnamon_140725-14015.jpg?w=360" alt="Strawberry cheesecake"/>
+        <div class="dessert-overlay">
+          <button class="dessert-add-btn" data-name="Strawberry Cheesecake" data-price="7" data-img="https://img.freepik.com/free-photo/side-view-two-strawberry-cheesecake-with-cup-tea-cinnamon_140725-14015.jpg?w=360">+ Əlavə Et</button>
+        </div>
+      </div>
+      <div class="dessert-info">
+        <h3>Strawberry Cheesecake</h3>
+        <span class="dessert-price">7 ₼</span>
+      </div>
+    </div>
+
+    <div class="dessert-card">
+      <div class="dessert-img-wrap">
+        <img src="https://img.freepik.com/free-photo/napoleon-cake-with-black-tea-table_140725-5346.jpg?w=360" alt="Napoleon cake"/>
+        <div class="dessert-overlay">
+          <button class="dessert-add-btn" data-name="Napoleon Cake" data-price="8" data-img="https://img.freepik.com/free-photo/napoleon-cake-with-black-tea-table_140725-5346.jpg?w=360">+ Əlavə Et</button>
+        </div>
+      </div>
+      <div class="dessert-info">
+        <h3>Napoleon Cake</h3>
+        <span class="dessert-price">8 ₼</span>
+      </div>
+    </div>
+
+    <div class="dessert-card">
+      <div class="dessert-img-wrap">
+        <img src="https://img.freepik.com/free-photo/chocolate-cheesecake-with-tea-side-view_140725-9107.jpg?w=360" alt="San Sebastian"/>
+        <div class="dessert-overlay">
+          <button class="dessert-add-btn" data-name="San Sebastian" data-price="7" data-img="https://img.freepik.com/free-photo/chocolate-cheesecake-with-tea-side-view_140725-9107.jpg?w=360">+ Əlavə Et</button>
+        </div>
+      </div>
+      <div class="dessert-info">
+        <h3>San Sebastian</h3>
+        <span class="dessert-price">7 ₼</span>
+      </div>
+    </div>
+
+    <div class="dessert-card">
+      <div class="dessert-img-wrap">
+        <img src="https://img.freepik.com/free-photo/top-view-choco-slice-tasty-yummy-inside-white-plate-brown-desk_140725-14545.jpg?w=360" alt="Islaq Kek"/>
+        <div class="dessert-overlay">
+          <button class="dessert-add-btn" data-name="Islaq Kek" data-price="6.50" data-img="https://img.freepik.com/free-photo/top-view-choco-slice-tasty-yummy-inside-white-plate-brown-desk_140725-14545.jpg?w=360">+ Əlavə Et</button>
+        </div>
+      </div>
+      <div class="dessert-info">
+        <h3>Islaq Kek</h3>
+        <span class="dessert-price">6.50 ₼</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DRINKS SECTION -->
+<section class="drinks-section" id="drinks-grid">
+  <div class="section-label">Serinləyin</div>
+  <h2 class="section-heading">İçkilər</h2>
+
+  <div class="drinks-filter">
+    <button class="drinks-filter-btn active" data-drink="all">Hamısı</button>
+    <button class="drinks-filter-btn" data-drink="soyuq">Soyuq</button>
+    <button class="drinks-filter-btn" data-drink="isti">İsti</button>
+    <button class="drinks-filter-btn" data-drink="alkosuz">Alkolsuz</button>
+  </div>
+
+  <div class="drinks-grid" id="drinksGrid">
+
+    <!-- SOYUQ -->
+    <div class="drink-card" data-drink="soyuq">
+      <div class="drink-img-wrap">
+        <img src="/img/slices-fruits-near-glass-drink-with-ice-herbs-table.jpg" alt="Limonad"/>
+        <span class="drink-cat-badge">Soyuq</span>
+      </div>
+      <div class="drink-body">
+        <h3>Limonad</h3>
+        <p class="drink-desc">Təzə limon, nanə və soda ilə hazırlanmış ev limonadı</p>
+        <div class="drink-footer">
+          <span class="drink-price">3.50 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Limonad" data-price="3.50">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="soyuq">
+      <div class="drink-img-wrap">
+        <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2024/08/Turkish-Ayran-Drink-Recipe-500x375.jpg" alt="Ayran"/>
+        <span class="drink-cat-badge">Soyuq</span>
+      </div>
+      <div class="drink-body">
+        <h3>Ayran</h3>
+        <p class="drink-desc">Soyuq, duzlu və köpüklü ənənəvi türk içkisi</p>
+        <div class="drink-footer">
+          <span class="drink-price">2.50 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Ayran" data-price="2.50">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="soyuq">
+      <div class="drink-img-wrap">
+        <img src="https://kayzen.az/uploads/images/00/85/62/2016/05/26/21ec18.jpg" alt="Soyuq Çay"/>
+        <span class="drink-cat-badge">Soyuq</span>
+      </div>
+      <div class="drink-body">
+        <h3>Soyuq Çay</h3>
+        <p class="drink-desc">Şəftəli və limon aromatlu soyuq dəmlənmiş çay</p>
+        <div class="drink-footer">
+          <span class="drink-price">3.00 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Soyuq Çay" data-price="3.00">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="soyuq">
+      <div class="drink-img-wrap">
+        <img src="https://imageproxy.wolt.com/menu/menu-images/6538bd6bff18a8a4582026d7/4e27d54e-f4c2-11ee-8d3f-5a143aca2b67_image__245_.png" alt="Təbii Şirə"/>
+        <span class="drink-cat-badge">Soyuq</span>
+      </div>
+      <div class="drink-body">
+        <h3>Təbii Şirə</h3>
+        <p class="drink-desc">Narıncı, alma və ya alma-kivi seçimi ilə təzə sıxılmış</p>
+        <div class="drink-footer">
+          <span class="drink-price">4.00 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Təbii Şirə" data-price="4.00">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- İSTİ -->
+    <div class="drink-card" data-drink="isti">
+      <div class="drink-img-wrap">
+        <img src="https://kayzen.az/uploads/images/00/85/62/2019/02/27/b204ca.jpg" alt="Türk Kahvəsi"/>
+        <span class="drink-cat-badge isti">İsti</span>
+      </div>
+      <div class="drink-body">
+        <h3>Türk Kahvəsi</h3>
+        <p class="drink-desc">Mis cəzvədə pişirilmiş ənənəvi Türk qəhvəsi</p>
+        <div class="drink-footer">
+          <span class="drink-price">4.00 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Türk Kahvəsi" data-price="4.00">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="isti">
+      <div class="drink-img-wrap">
+        <img src="https://news.milli.az/media/2022/01/17/1011969.jpg" alt="Armudu Çay"/>
+        <span class="drink-cat-badge isti">İsti</span>
+      </div>
+      <div class="drink-body">
+        <h3>Armudu Çay</h3>
+        <p class="drink-desc">Azərbaycan ənənəsi — armudu stəkanda dəmlənmiş qara çay</p>
+        <div class="drink-footer">
+          <span class="drink-price">2.00 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Armudu Çay" data-price="2.00">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="isti">
+      <div class="drink-img-wrap">
+        <img src="https://guentercoffee.com/cdn/shop/articles/anleitung-cappuccino-blogheader_749c310f-0dc4-4a54-8fdc-351bd3b33cd6.jpg?v=1778077512&width=1440" alt="Kapuçino"/>
+        <span class="drink-cat-badge isti">İsti</span>
+      </div>
+      <div class="drink-body">
+        <h3>Kapuçino</h3>
+        <p class="drink-desc">İtalyan espresso, buxarlanmış süd və qalın köpük ilə</p>
+        <div class="drink-footer">
+          <span class="drink-price">4.50 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Kapuçino" data-price="4.50">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="isti">
+      <div class="drink-img-wrap">
+        <img src="https://e-saglam.az/storage/1883/conversions/doganin-enerji-deposu-enerji-veren-bitki-caylari-large.jpg" alt="Bitki Çayı"/>
+        <span class="drink-cat-badge isti">İsti</span>
+      </div>
+      <div class="drink-body">
+        <h3>Bitki Çayı</h3>
+        <p class="drink-desc">Nanə, zəncəfil və ya camomile seçimi ilə həyat verən dəm</p>
+        <div class="drink-footer">
+          <span class="drink-price">3.00 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Bitki Çayı" data-price="3.00">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALKOLSUZ -->
+    <div class="drink-card" data-drink="alkosuz">
+      <div class="drink-img-wrap">
+        <img src="/img/lemon-lime-cocktail-table.jpg"/>
+        <span class="drink-cat-badge alkosuz">Alkolsuz</span>
+      </div>
+      <div class="drink-body">
+        <h3>Mojito (Alkolsuz)</h3>
+        <p class="drink-desc">Nanə, limon, şəkər şərbəti və soda ilə hazırlanmış serinlədici</p>
+        <div class="drink-footer">
+          <span class="drink-price">5.00 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Mojito" data-price="5.00">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="alkosuz">
+      <div class="drink-img-wrap">
+        <img src="https://www.artfrommytable.com/wp-content/uploads/2024/04/virgin-strawberry-daiquiri-5.jpg" alt="Virgin Daiquiri"/>
+        <span class="drink-cat-badge alkosuz">Alkolsuz</span>
+      </div>
+      <div class="drink-body">
+        <h3>Virgin Daiquiri</h3>
+        <p class="drink-desc">Çiyələk, limon şirəsi və qırmızı meyvə püreyi qarışığı</p>
+        <div class="drink-footer">
+          <span class="drink-price">5.50 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Virgin Daiquiri" data-price="5.50">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="alkosuz">
+      <div class="drink-img-wrap">
+        <img src="https://cdn.wannart.com/production/post/2019/11/21218_large.jpg" alt="Meyvə Smoothie"/>
+        <span class="drink-cat-badge alkosuz">Alkolsuz</span>
+      </div>
+      <div class="drink-body">
+        <h3>Meyvə Smoothie</h3>
+        <p class="drink-desc">Mango, banan və çiyələk ilə hazırlanmış qalın içki</p>
+        <div class="drink-footer">
+          <span class="drink-price">5.00 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Meyvə Smoothie" data-price="5.00">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drink-card" data-drink="alkosuz">
+      <div class="drink-img-wrap">
+        <img src="https://news.milli.az/media/2016/10/22/mineral_su_0254.jpg" alt="Mineral Su"/>
+        <span class="drink-cat-badge alkosuz">Alkolsuz</span>
+      </div>
+      <div class="drink-body">
+        <h3>Mineral Su</h3>
+        <p class="drink-desc">Soyuq, qazlı və ya qazsız mineral su</p>
+        <div class="drink-footer">
+          <span class="drink-price">1.50 <em>₼</em></span>
+          <button class="drink-add-btn" data-name="Mineral Su" data-price="1.50">
+            <i class="fa-solid fa-plus"></i> Əlavə Et
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- FOOTER / CONTACT -->
+  <footer class="site-footer" id="contact-section">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/img/logo-removebg-preview.png" alt="Logo"/>
+        <p>Baku'nun ən seçkin<br/>restoran təcrübəsi</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Əlaqə</h4>
+        <p><i class="fa-solid fa-location-dot"></i> Elmlər Akademiyası m/s, Bakı</p>
+        <p><i class="fa-solid fa-phone"></i> +994 XX XXX XX XX</p>
+        <p><i class="fa-solid fa-clock"></i> 10:00 – 23:00</p>
+      </div>
+      <div class="footer-social">
+        <h4>Sosial Media</h4>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Padişah Restoran. Bütün hüquqlar qorunur.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Burger menu
+    document.getElementById('burgerBtn').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.getElementById('burgerBtn').classList.toggle('active');
+    });
+    document.querySelectorAll('.mobile-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('mobileNav').classList.remove('open');
+        document.getElementById('burgerBtn').classList.remove('active');
+      });
+    });
+
+    // Cart backdrop
+    document.getElementById('cartBackdrop').addEventListener('click', () => {
+      document.getElementById('cartSidebar').classList.remove('open');
+      document.getElementById('cartBackdrop').classList.remove('show');
+    });
+
+    // Override cartToggle to also show backdrop
+    const origToggle = document.getElementById('cartToggle');
+    origToggle.addEventListener('click', () => {
+      document.getElementById('cartSidebar').classList.add('open');
+      document.getElementById('cartBackdrop').classList.add('show');
+    });
+    document.getElementById('cartClose').addEventListener('click', () => {
+      document.getElementById('cartSidebar').classList.remove('open');
+      document.getElementById('cartBackdrop').classList.remove('show');
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.dessert-card, .product-card').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
