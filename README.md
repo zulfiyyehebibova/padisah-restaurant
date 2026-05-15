@@ -58,5 +58,5 @@ https://padisah.nantech.az/
 ## 👨‍💻 Müəllif
 
 Hazırladı: **Zülfiyyə Həbibova**  
-GitHub: https://github.com/zulfiyyehebibova
+GitHub: https://github.com/zulfiyyehebibova    
 Təhsil: NaN Tech Front-End Web Development Proqramı
